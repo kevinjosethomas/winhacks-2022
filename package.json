@@ -1,0 +1,21 @@
+{
+  "name": "winhacks-2022",
+  "version": "1.0.0",
+  "description": "⚔️ My submission for WinHacks 2022",
+  "repository": "https://github.com/kevinjosethomas/winhacks-2022.git",
+  "author": "Kevin Thomas <kevin.jt2007@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/api",
+    "packages/web"
+  ],
+  "scripts": {
+    "dev:api": "yarn workspace api dev",
+    "dev:web": "yarn workspace web dev",
+    "build:api": "yarn workspace api build",
+    "build:web": "yarn workspace web build",
+    "start:api": "yarn workspace api start",
+    "start:web": "yarn workspace web start"
+  }
+}
