@@ -5,6 +5,8 @@ import compress from "fastify-compress";
 import Fastify, { FastifyInstance } from "fastify";
 
 import errors from "./plugins/errors";
+import database from "./plugins/database";
+
 import example from "./routes/example";
 
 dotenv.config();
@@ -16,7 +18,9 @@ const app: FastifyInstance = Fastify({
 app.register(cors);
 app.register(helmet);
 app.register(compress);
+
 app.register(errors);
+app.register(database);
 
 app.register(example);
 
