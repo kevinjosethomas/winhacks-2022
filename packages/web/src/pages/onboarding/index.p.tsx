@@ -9,10 +9,10 @@ function Onboarding() {
   return (
     <Default>
       <div className="flex flex-col items-center space-y-20">
-        <p className="text-6xl font-monument text-white">Get Started</p>
-        <div className="flex items-center justify-center h-5/6 space-x-10">
+        <p className="font-monument text-6xl text-white">Get Started</p>
+        <div className="flex h-5/6 items-center justify-center space-x-10">
           <SignUp />
-          <div className="h-full w-1 bg-white rounded-full bg-opacity-10" />
+          <div className="h-full w-1 rounded-full bg-white bg-opacity-10" />
           <Login />
         </div>
       </div>

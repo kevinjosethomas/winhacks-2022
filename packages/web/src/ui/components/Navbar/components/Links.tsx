@@ -7,13 +7,14 @@ function Links(): JSX.Element {
       href: "/students",
     },
     {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
       label: "Partners",
       href: "/partners",
     },
+    {
+      label: "Projects",
+      href: "/projects",
+    },
+
     {
       label: "Admins",
       href: "/admins",
@@ -24,7 +25,7 @@ function Links(): JSX.Element {
     <div className="flex items-center space-x-8">
       {links.map((link, index) => (
         <Link key={index} href={link.href}>
-          <a className="text-white text-xl text-opacity-90 hover:text-opacity-100 transition duration-300">
+          <a className="text-xl text-white text-opacity-90 transition duration-300 hover:text-opacity-100">
             {link.label}
           </a>
         </Link>

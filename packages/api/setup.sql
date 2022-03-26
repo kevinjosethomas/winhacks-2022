@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS projects (
   affiliation       VARCHAR NOT NULL,
   duration          INT NOT NULL,
   required_people   INT NOT NULL,
+  accepting         BOOLEAN NOT NULL DEFAULT true,
   approved          BOOLEAN NOT NULL DEFAULT false,
   created_by        INT REFERENCES users(user_id) ON DELETE CASCADE,
   approved_at       TIMESTAMPTZ,
