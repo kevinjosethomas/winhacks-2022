@@ -22,3 +22,7 @@ body {
 .font-monument {
   font-family: "Monument Extended";
 }
+
+.description-overlay {
+  background: linear-gradient(to bottom, transparent, #17181a 80%);
+}
