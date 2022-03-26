@@ -23,6 +23,15 @@ const create = {
   },
 } as const;
 
+const list = {
+  querystring: {
+    type: "object",
+    properties: {
+      approved: { type: "string", enum: ["true", "false"] },
+    },
+  },
+} as const;
+
 export default async function router(fastify: FastifyInstance) {
   fastify.post<{ Body: FromSchema<typeof create.body> }>(
     "/create",
@@ -65,4 +74,18 @@ export default async function router(fastify: FastifyInstance) {
       });
     }
   );
+
+  fastify.get("/list", { schema: list }, async (req, res) => {
+    let { approved } = req.query as any;
+    approved = approved === "true" ? true : false;
+
+    const results = await fastify.pg.query("SELECT * FROM projects WHERE approved = $1", [
+      approved,
+    ]);
+
+    return res.code(200).send({
+      success: true,
+      payload: results.rows,
+    });
+  });
 }

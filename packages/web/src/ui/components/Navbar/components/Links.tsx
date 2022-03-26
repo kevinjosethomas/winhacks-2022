@@ -16,8 +16,8 @@ function Links(): JSX.Element {
     },
 
     {
-      label: "Admins",
-      href: "/admins",
+      label: "Admin",
+      href: "/admin",
     },
   ];
 
