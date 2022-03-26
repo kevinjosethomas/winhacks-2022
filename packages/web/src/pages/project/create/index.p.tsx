@@ -90,7 +90,7 @@ export default function Projects(props: ProjectsProps) {
       return;
     }
 
-    router.push(`/u/${props.user.user_id}`);
+    router.push("/projects");
   };
 
   return (
