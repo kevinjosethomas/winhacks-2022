@@ -9,10 +9,10 @@ type DefaultProps = {
 
 function Default(props: DefaultProps): JSX.Element {
   return (
-    <div className="grid justify-center w-screen min-h-screen h-full bg-dark-700 overflow-hidden">
-      <div className="flex flex-col w-full h-full w-[1200px] space-y-10">
+    <div className="grid h-full min-h-screen w-screen justify-center overflow-hidden bg-dark-700 pb-20">
+      <div className="flex h-full w-full w-[1200px] flex-col space-y-10">
         <Navbar user={props.user} />
-        <div className="flex flex-col w-full h-full">{props.children}</div>
+        <div className="flex h-full w-full flex-col">{props.children}</div>
       </div>
     </div>
   );
