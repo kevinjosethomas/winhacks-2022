@@ -34,5 +34,8 @@ CREATE TABLE IF NOT EXISTS project_applications (
   application_id    SERIAL PRIMARY KEY,
   applicant_id      INT REFERENCES users (user_id) ON DELETE CASCADE,
   project_id        INT REFERENCES projects (project_id) ON DELETE CASCADE,
+  interests         TEXT,
+  qualifications    TEXT,
+  accepted          BOOLEAN NOT NULL DEFAULT false,
   created_at        TIMESTAMPTZ DEFAULT NOW()
 );
