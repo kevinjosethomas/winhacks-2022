@@ -1,4 +1,7 @@
+import { GetServerSidePropsContext } from "next";
+
 import Login from "./components/Login";
+import { Authenticate } from "api/user";
 import Default from "ui/layouts/Default";
 import SignUp from "./components/SignUp";
 
@@ -15,6 +18,23 @@ function Onboarding() {
       </div>
     </Default>
   );
+}
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const [response, error] = await Authenticate(ctx);
+
+  if (error) {
+    return {
+      props: {},
+    };
+  } else {
+    return {
+      redirect: {
+        destination: `/u/${response.payload.user_id}`,
+        permanent: false,
+      },
+    };
+  }
 }
 
 export default Onboarding;
