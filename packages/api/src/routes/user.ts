@@ -33,6 +33,15 @@ const login = {
   },
 } as const;
 
+const auth = {
+  headers: {
+    type: "object",
+    properties: {
+      Authorization: { type: "string" },
+    },
+  },
+} as const;
+
 export default async function router(fastify: FastifyInstance) {
   fastify.post<{ Body: FromSchema<typeof signup.body> }>(
     "/signup",
@@ -166,4 +175,33 @@ export default async function router(fastify: FastifyInstance) {
       });
     }
   );
+
+  fastify.get("/auth", { schema: auth }, async (req, res) => {
+    const { Authorization } = req.headers;
+
+    const results = await fastify.pg.query(
+      "SELECT user_id FROM user_tokens WHERE token = $1 AND NOW() < expires_at",
+      [Authorization]
+    );
+
+    if (!results.rowCount) {
+      return res.code(401).send({
+        success: false,
+        message: "Unauthorized - Invalid token provided",
+      });
+    }
+
+    const user = await fastify.pg.query(
+      "SELECT user_id, name, email, type, created_at FROM users WHERE user_id = $1",
+      [results.rows[0].user_id]
+    );
+
+    return res.code(200).send({
+      success: true,
+      message: "OK - Successfully authenticated",
+      payload: {
+        user: user.rows[0],
+      },
+    });
+  });
 }
