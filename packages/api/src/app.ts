@@ -8,6 +8,7 @@ import errors from "./plugins/errors";
 import database from "./plugins/database";
 
 import user from "./routes/user";
+import project from "./routes/project";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.register(errors);
 app.register(database);
 
 app.register(user, { prefix: "/user" });
+app.register(project, { prefix: "/project" });
 
 const run = async () => {
   const port = process.env.PORT as string;
