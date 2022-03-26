@@ -13,7 +13,7 @@ function Default(props: DefaultProps): JSX.Element {
     <div className="grid h-full min-h-screen w-screen justify-center overflow-hidden bg-dark-700 pb-20">
       <div className="flex h-full w-full w-[1200px] flex-col space-y-10">
         <Navbar user={props.user} />
-        <div className="flex h-full w-full flex-col">{props.children}</div>
+        <div className="flex w-full flex-col">{props.children}</div>
         <Footer />
       </div>
     </div>
