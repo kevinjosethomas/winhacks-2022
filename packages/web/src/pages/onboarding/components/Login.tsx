@@ -1,11 +1,15 @@
 import cookie from "js-cookie";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 
 import Input from "./Input";
 import { Login as LoginUser } from "api/user";
 
 function Login(): JSX.Element {
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
   const [params, setParams] = useState({
     email: "",
     password: "",
@@ -19,7 +23,9 @@ function Login(): JSX.Element {
   };
 
   const submit = async () => {
+    setLoading(true);
     const [response, error] = await LoginUser(params.email, params.password);
+    setLoading(false);
 
     if (error) {
       switch (error.response?.status) {
@@ -41,11 +47,13 @@ function Login(): JSX.Element {
       secure: true,
       sameSite: "strict",
     });
+
+    router.push("/");
   };
 
   return (
-    <div className="flex flex-col space-y-6 justify-start h-full">
-      <p className="text-4xl text-white font-monument select-none">Log In</p>
+    <div className="flex h-full flex-col justify-start space-y-6">
+      <p className="font-monument select-none text-4xl text-white">Log In</p>
       <div className="flex flex-col space-y-4">
         <Input
           type="email"
@@ -63,10 +71,16 @@ function Login(): JSX.Element {
         />
       </div>
       <div
-        className="flex justify-center bg-blue-600 rounded-xl hover:bg-blue-800 transition duration-300 py-3 cursor-pointer"
-        onClick={submit}
+        className="flex cursor-pointer justify-center rounded-xl bg-blue-600 py-3 transition duration-300 hover:bg-blue-800"
+        onClick={() => {
+          if (!loading) submit();
+        }}
       >
-        <p className="text-2xl text-white select-none">Login</p>
+        {loading ? (
+          <img src="/images/loading.svg" className="w-8" alt="Loading" />
+        ) : (
+          <p className="select-none text-2xl text-white">Login</p>
+        )}
       </div>
     </div>
   );
