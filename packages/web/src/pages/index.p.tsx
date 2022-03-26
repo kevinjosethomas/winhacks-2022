@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
+import { GetServerSidePropsContext } from "next";
 
+import { Authenticate } from "api/user";
 import Default from "ui/layouts/Default";
 
 const Home: NextPage = () => {
@@ -66,5 +68,21 @@ const Home: NextPage = () => {
     </Default>
   );
 };
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const [response, error] = await Authenticate(ctx);
+
+  if (error) {
+    return {
+      props: {},
+    };
+  } else {
+    return {
+      props: {
+        user: response.payload,
+      },
+    };
+  }
+}
 
 export default Home;

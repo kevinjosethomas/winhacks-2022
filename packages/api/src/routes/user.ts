@@ -39,6 +39,7 @@ const auth = {
     properties: {
       Authorization: { type: "string" },
     },
+    required: ["Authorization"],
   },
 } as const;
 
@@ -177,11 +178,11 @@ export default async function router(fastify: FastifyInstance) {
   );
 
   fastify.get("/auth", { schema: auth }, async (req, res) => {
-    const { Authorization } = req.headers;
+    const { authorization } = req.headers;
 
     const results = await fastify.pg.query(
       "SELECT user_id FROM user_tokens WHERE token = $1 AND NOW() < expires_at",
-      [Authorization]
+      [authorization]
     );
 
     if (!results.rowCount) {
@@ -199,9 +200,7 @@ export default async function router(fastify: FastifyInstance) {
     return res.code(200).send({
       success: true,
       message: "OK - Successfully authenticated",
-      payload: {
-        user: user.rows[0],
-      },
+      payload: user.rows[0],
     });
   });
 }
