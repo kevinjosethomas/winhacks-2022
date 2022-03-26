@@ -5,7 +5,7 @@ import { Authenticate } from "api/user";
 import Default from "ui/layouts/Default";
 import SignUp from "./components/SignUp";
 
-function Onboarding() {
+export default function Onboarding() {
   return (
     <Default>
       <div className="flex flex-col items-center space-y-20">
@@ -36,5 +36,3 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     };
   }
 }
-
-export default Onboarding;

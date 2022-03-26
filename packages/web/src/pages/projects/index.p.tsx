@@ -2,20 +2,21 @@ import { GetServerSidePropsContext } from "next";
 
 import { Authenticate } from "api/user";
 import Default from "ui/layouts/Default";
+import Header from "./index/components/Header";
 
-type HomeProps = {
-  user?: Record<string, any>;
+type ProjectsProps = {
+  user: Record<string, any>;
 };
 
-const Home = (props: HomeProps) => {
+export default function Projects(props: ProjectsProps) {
   return (
     <Default user={props.user}>
       <div className="flex w-full flex-col">
-        <p className="font-monument text-5xl text-white">Open Projects</p>
+        <Header user={props.user} />
       </div>
     </Default>
   );
-};
+}
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const [response, error] = await Authenticate(ctx);
@@ -35,5 +36,3 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     };
   }
 }
-
-export default Home;
