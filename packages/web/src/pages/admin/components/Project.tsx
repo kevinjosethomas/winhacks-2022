@@ -80,7 +80,7 @@ function Project(props: ProjectProps): JSX.Element {
             <p className="text-xl text-white text-opacity-90">
               Duration:{" "}
               {props.duration === 0
-                ? "<1 Mmnth"
+                ? "<1 month"
                 : props.duration === 1
                 ? "1 month"
                 : props.duration === 3

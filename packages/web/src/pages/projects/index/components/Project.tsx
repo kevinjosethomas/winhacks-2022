@@ -1,10 +1,12 @@
 type ProjectProps = {
+  project_id: number;
   name: string;
   description: string;
   tasks: string[];
   required_people: number;
   affiliation: string;
   duration: number;
+  clear: () => void;
 };
 
 function Project(props: ProjectProps): JSX.Element {
@@ -17,7 +19,7 @@ function Project(props: ProjectProps): JSX.Element {
         </div>
       </div>
       <div className="flex w-full flex-row items-center justify-between space-y-4 space-x-4 bg-dark-500 p-5">
-        <div className="flex w-full flex-col items-start justify-center space-y-4">
+        <div className="flex w-full flex-col items-start justify-center space-y-4 self-start">
           <p className="text-white text-opacity-80">{props.description}</p>
           <div className="flex items-center space-x-2">
             {props.tasks.map((task: string, index: number) => (
@@ -37,7 +39,7 @@ function Project(props: ProjectProps): JSX.Element {
             <p className="text-xl text-white text-opacity-90">
               Duration:{" "}
               {props.duration === 0
-                ? "<1 Mmnth"
+                ? "<1 month"
                 : props.duration === 1
                 ? "1 month"
                 : props.duration === 3

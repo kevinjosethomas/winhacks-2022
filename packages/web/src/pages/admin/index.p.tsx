@@ -34,7 +34,7 @@ export default function Admin(props: AdminProps) {
     <Default user={props.user}>
       <div className="flex w-full flex-col space-y-8">
         <p className="font-monument text-5xl text-white">Project Approval</p>
-        <div className="flex w-full flex-col items-center justify-center">
+        <div className="flex w-full flex-col items-center justify-center space-y-4">
           {loading ? (
             <img src="/images/loading.svg" alt="Loading" className="w-24" />
           ) : (
