@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import Navbar from "ui/components/Navbar/Navbar";
+import Footer from "ui/components/Footer/Footer";
 
 type DefaultProps = {
   children?: ReactNode;
@@ -13,6 +14,7 @@ function Default(props: DefaultProps): JSX.Element {
       <div className="flex h-full w-full w-[1200px] flex-col space-y-10">
         <Navbar user={props.user} />
         <div className="flex h-full w-full flex-col">{props.children}</div>
+        <Footer />
       </div>
     </div>
   );

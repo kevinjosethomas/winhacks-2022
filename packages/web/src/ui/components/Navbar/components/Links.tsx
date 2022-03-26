@@ -2,14 +2,14 @@ import Link from "next/link";
 
 function Links(): JSX.Element {
   const links = [
-    {
-      label: "Students",
-      href: "/students",
-    },
-    {
-      label: "Partners",
-      href: "/partners",
-    },
+    // {
+    //   label: "Students",
+    //   href: "/students",
+    // },
+    // {
+    //   label: "Partners",
+    //   href: "/partners",
+    // },
     {
       label: "Projects",
       href: "/projects",
