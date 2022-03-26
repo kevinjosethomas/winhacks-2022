@@ -30,7 +30,7 @@ function Left(props: LeftProps): JSX.Element {
   };
 
   return (
-    <div className="flex w-full flex-col space-y-6 rounded-2xl border-2 border-dark-500 bg-white bg-opacity-5 p-8">
+    <div className="flex h-full w-full flex-col space-y-6 rounded-2xl border-2 border-dark-500 bg-white bg-opacity-5 p-8">
       <p className="font-monument text-3xl text-white">Information</p>
       <div className="flex w-full flex-col space-y-4">
         <Input

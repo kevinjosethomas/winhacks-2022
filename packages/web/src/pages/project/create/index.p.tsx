@@ -6,6 +6,7 @@ import Right from "./components/Right";
 import { Authenticate } from "api/user";
 import Header from "./components/Header";
 import Default from "ui/layouts/Default";
+import { AFFILIATES, TASKS } from "api/data";
 
 type ProjectsProps = {
   user: Record<string, any>;
@@ -31,11 +32,13 @@ export default function Projects(props: ProjectsProps) {
     },
   ];
 
+  const affiliateOptions = [...AFFILIATES];
+
   const [params, setParams] = useState({
     name: "",
     description: "",
-    tasks: [],
-    affiliation: "",
+    tasks: [...TASKS],
+    affiliation: affiliateOptions[0],
     duration: durationOptions[1],
     required_people: 1,
     accepting: true,
@@ -45,9 +48,9 @@ export default function Projects(props: ProjectsProps) {
     <Default user={props.user}>
       <div className="flex w-full flex-col space-y-4">
         <Header />
-        <div className="flex items-start space-x-4">
-          <Left durationOptions={durationOptions} params={params} setParams={setParams} />
-          <Right params={params} setParams={setParams} />
+        <div className="grid w-full grid-cols-2 items-start gap-x-4">
+          <Left params={params} setParams={setParams} durationOptions={durationOptions} />
+          <Right params={params} setParams={setParams} affiliateOptions={affiliateOptions} />
         </div>
       </div>
     </Default>
