@@ -61,7 +61,7 @@ export default function Projects(props: ProjectsProps) {
     data.tasks = tasks;
 
     data.duration = data.duration.value;
-    data.affiliation = data.affiliation.value;
+    data.affiliation = data.affiliation.label;
 
     const token = cookie.get("WESPARK-TOKEN") as string;
 

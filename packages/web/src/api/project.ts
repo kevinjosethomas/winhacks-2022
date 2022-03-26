@@ -33,4 +33,16 @@ const CreateProject = async (
   }
 };
 
-export { CreateProject };
+const GetProjects = async (approved: boolean) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/project/list?approved=${approved}`
+    );
+
+    return [response.data, null];
+  } catch (e) {
+    return [null, e];
+  }
+};
+
+export { CreateProject, GetProjects };
