@@ -45,4 +45,22 @@ const GetProjects = async (approved: boolean) => {
   }
 };
 
-export { CreateProject, GetProjects };
+const ApproveProject = async (id: number, token: string) => {
+  try {
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/project/${id}/approve`,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    return [response.data, null];
+  } catch (e) {
+    return [null, e];
+  }
+};
+
+export { CreateProject, GetProjects, ApproveProject };

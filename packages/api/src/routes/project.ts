@@ -23,6 +23,21 @@ const create = {
   },
 } as const;
 
+const approve = {
+  params: {
+    type: "object",
+    properties: {
+      id: { type: "string" },
+    },
+  },
+  headers: {
+    type: "object",
+    properties: {
+      Authorization: { type: "string" },
+    },
+  },
+} as const;
+
 const list = {
   querystring: {
     type: "object",
@@ -71,6 +86,56 @@ export default async function router(fastify: FastifyInstance) {
       return res.code(200).send({
         success: true,
         message: "OK - Successfully created project!",
+      });
+    }
+  );
+
+  fastify.put<{ Params: FromSchema<typeof approve.params> }>(
+    "/:id/approve",
+    { schema: approve },
+    async (req, res) => {
+      const project_id = req.params.id;
+
+      if (!req.headers.authorization) {
+        return res.code(401).send({
+          success: false,
+          message: "Unauthorized - Please provide an Authorization token!",
+        });
+      }
+
+      const { authorization } = req.headers;
+
+      const tokens = await fastify.pg.query(
+        "SELECT user_id FROM user_tokens WHERE token = $1 AND NOW() < expires_at",
+        [authorization]
+      );
+
+      if (!tokens.rowCount) {
+        return res.code(401).send({
+          success: false,
+          message: "Unauthorized - Invalid Authorization token provided!",
+        });
+      }
+
+      const user = await fastify.pg.query("SELECT user_id, type FROM users WHERE user_id = $1", [
+        tokens.rows[0].user_id,
+      ]);
+
+      if (user.rows[0].type !== 3) {
+        return res.code(401).send({
+          success: false,
+          message: "Unauthorized - Only administrators can perform this action!",
+        });
+      }
+
+      await fastify.pg.query(
+        "UPDATE projects SET approved = true, approved_at = NOW() WHERE project_id = $1",
+        [project_id]
+      );
+
+      return res.code(200).send({
+        success: true,
+        message: "OK - Successfully approved project!",
       });
     }
   );

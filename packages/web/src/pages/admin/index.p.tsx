@@ -42,7 +42,15 @@ export default function Admin(props: AdminProps) {
               {projects.length ? (
                 <Fragment>
                   {projects.map((project: any, index: number) => (
-                    <Project key={index} {...project} />
+                    <Project
+                      key={index}
+                      {...project}
+                      clear={() =>
+                        setProjects((p) => [
+                          ...p.filter((x: any) => x.project_id !== project.project_id),
+                        ])
+                      }
+                    />
                   ))}
                 </Fragment>
               ) : (
