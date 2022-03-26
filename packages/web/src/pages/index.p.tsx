@@ -4,9 +4,13 @@ import { GetServerSidePropsContext } from "next";
 import { Authenticate } from "api/user";
 import Default from "ui/layouts/Default";
 
-const Home: NextPage = () => {
+type HomeProps = {
+  user?: Record<string, any>;
+};
+
+const Home = (props: HomeProps) => {
   return (
-    <Default>
+    <Default user={props.user}>
       <div className="relative flex flex-col items-center justify-center space-y-10 mt-20 select-none">
         <div className="flex flex-col items-center justify-center space-y-2 select-none">
           <div className="z-10 flex items-center bg-teal-400 py-2 px-8 rotate-[-2deg]">
