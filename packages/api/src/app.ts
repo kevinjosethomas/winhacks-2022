@@ -7,7 +7,7 @@ import Fastify, { FastifyInstance } from "fastify";
 import errors from "./plugins/errors";
 import database from "./plugins/database";
 
-import example from "./routes/example";
+import user from "./routes/user";
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ app.register(compress);
 app.register(errors);
 app.register(database);
 
-app.register(example);
+app.register(user, { prefix: "/user" });
 
 const run = async () => {
   const port = process.env.PORT as string;
