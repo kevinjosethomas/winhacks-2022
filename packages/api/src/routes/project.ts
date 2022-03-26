@@ -31,18 +31,18 @@ export default async function router(fastify: FastifyInstance) {
       let user_id;
       let { name, description, tasks, affiliation, duration, required_people } = req.body;
 
-      if (!req.headers.Authorization) {
+      if (!req.headers.authorization) {
         return res.code(401).send({
           success: false,
           message: "Unauthorized - Please provide an Authorization token!",
         });
       }
 
-      const { Authorization } = req.headers;
+      const { authorization } = req.headers;
 
       const tokens = await fastify.pg.query(
         "SELECT user_id FROM user_tokens WHERE token = $1 AND NOW() < expires_at",
-        [Authorization]
+        [authorization]
       );
 
       if (!tokens.rowCount) {

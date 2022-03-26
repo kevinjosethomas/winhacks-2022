@@ -2,9 +2,12 @@ import Select from "./Select";
 import Dropdown from "./Dropdown";
 
 type RightProps = {
+  loading: boolean;
   params: Record<string, any>;
   setParams: (p: any) => void;
+  setLoading: (loading: boolean) => void;
   affiliateOptions: Record<string, any>[];
+  submit: () => void;
 };
 
 function Right(props: RightProps): JSX.Element {
@@ -34,9 +37,17 @@ function Right(props: RightProps): JSX.Element {
             that you have listed.
           </p>
         </div>
-
-        <div className="flex justify-center self-end rounded-2xl bg-blue-800 px-6 py-3 hover:bg-blue-900">
-          <p className="select-none text-xl text-white">Submit</p>
+        <div
+          className="flex cursor-pointer justify-center self-end rounded-2xl bg-blue-800 px-6 py-3 hover:bg-blue-900"
+          onClick={() => {
+            if (!props.loading) props.submit();
+          }}
+        >
+          {props.loading ? (
+            <img src="/images/loading.svg" className="w-7" alt="Loading" />
+          ) : (
+            <p className="select-none text-xl text-white">Submit</p>
+          )}
         </div>
       </div>
     </div>

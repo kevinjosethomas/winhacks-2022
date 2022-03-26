@@ -54,7 +54,7 @@ function SignUp(): JSX.Element {
           toast.error("You are not authorized to do this!");
           break;
         case 409:
-          toast.error("This username or email is takne");
+          toast.error("This email is already in use!");
           break;
         default:
           console.log(error.response);

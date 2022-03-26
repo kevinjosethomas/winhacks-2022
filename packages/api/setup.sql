@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS projects (
   project_id        SERIAL PRIMARY KEY,
   name              VARCHAR NOT NULL,
   description       TEXT NOT NULL,
-  task              VARCHAR NOT NULL,
+  tasks             VARCHAR[] NOT NULL,
   affiliation       VARCHAR NOT NULL,
   duration          INT NOT NULL,
   required_people   INT NOT NULL,
