@@ -29,11 +29,10 @@ function Dropdown(props: DropdownProps): JSX.Element {
         exit={{ y: 10, opacity: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <Element icon="fas fa-user-circle" label="View Profile" href={`/u/${props.user.user_id}`} />
         {props.user.type === 1 ? (
           <Element icon="fas fa-search" label="Find Projects" href="/projects" />
         ) : props.user.type === 2 ? (
-          <Element icon="fas fa-project-diagram" label="Manage Projects" href="/projects/my" />
+          <Element icon="fas fa-project-diagram" label="View Projects" href="/projects" />
         ) : (
           <Element icon="fas fa-tools" label="Admin Dash" href="/admin" />
         )}
