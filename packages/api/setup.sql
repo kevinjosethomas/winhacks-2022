@@ -1,7 +1,6 @@
 
 CREATE TABLE IF NOT EXISTS users (
   user_id           SERIAL PRIMARY KEY,
-  username          VARCHAR(255) UNIQUE NOT NULL,
   name              VARCHAR NOT NULL,
   email             TEXT NOT NULL,
   password          VARCHAR NOT NULL,

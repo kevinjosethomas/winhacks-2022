@@ -1,14 +1,14 @@
+import cookie from "js-cookie";
+import toast from "react-hot-toast";
 import { ChangeEvent, useState } from "react";
 
 import Input from "./Input";
 import Select from "./Select";
+import { CreateUser } from "api/user";
 
-type SignUpProps = {};
-
-function SignUp(props: SignUpProps): JSX.Element {
+function SignUp(): JSX.Element {
   const [params, setParams] = useState({
     name: "",
-    username: "",
     email: "",
     password: "",
     type: 1,
@@ -32,6 +32,36 @@ function SignUp(props: SignUpProps): JSX.Element {
     },
   ];
 
+  const submit = async () => {
+    const [response, error] = await CreateUser(
+      params.name,
+      params.email,
+      params.password,
+      params.type
+    );
+
+    if (error) {
+      switch (error.response?.status) {
+        case 401:
+          toast.error("You are not authorized to do this!");
+          break;
+        case 409:
+          toast.error("This username or email is takne");
+          break;
+        default:
+          console.log(error.response);
+          toast.error("An unknown error occured!");
+          break;
+      }
+      return;
+    }
+
+    cookie.set("WESPARK-TOKEN", response.payload.token, {
+      secure: true,
+      sameSite: "strict",
+    });
+  };
+
   return (
     <div className="flex flex-col space-y-6">
       <p className="text-4xl text-white font-monument select-none">Sign Up</p>
@@ -39,9 +69,9 @@ function SignUp(props: SignUpProps): JSX.Element {
         <Input
           type="text"
           icon="fas fa-user-circle"
-          label="Username"
-          value={params.username}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => onChange("username", e, 16)}
+          label="Full Name"
+          value={params.name}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onChange("name", e, 16)}
         />
         <Input
           type="email"
@@ -64,7 +94,10 @@ function SignUp(props: SignUpProps): JSX.Element {
           setValue={(v: number) => setParams((p) => ({ ...p, type: v }))}
         />
       </div>
-      <div className="flex justify-center bg-blue-600 rounded-xl hover:bg-blue-800 transition duration-300 py-3 cursor-pointer">
+      <div
+        className="flex justify-center bg-blue-600 rounded-xl hover:bg-blue-800 transition duration-300 py-3 cursor-pointer"
+        onClick={submit}
+      >
         <p className="text-2xl text-white select-none">Create Account</p>
       </div>
     </div>
