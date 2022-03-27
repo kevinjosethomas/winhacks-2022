@@ -35,7 +35,7 @@ export default function Projects(props: ProjectsProps) {
     <Default user={props.user}>
       <div className="flex w-full flex-col space-y-8">
         <Header user={props.user} />
-        <div className="flex w-full flex-col items-start justify-start">
+        <div className="flex w-full flex-col items-start justify-start space-y-4">
           {loading ? (
             <img src="/images/loading.svg" alt="Loading" className="w-24" />
           ) : (

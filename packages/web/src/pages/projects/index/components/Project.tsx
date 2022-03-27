@@ -1,3 +1,8 @@
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+
+import Apply from "../modals/Apply";
+
 type ProjectProps = {
   project_id: number;
   name: string;
@@ -6,15 +11,20 @@ type ProjectProps = {
   required_people: number;
   affiliation: string;
   duration: number;
-  clear: () => void;
 };
 
 function Project(props: ProjectProps): JSX.Element {
+  const [modal, showModal] = useState(false);
+
   return (
     <div className="flex w-full flex-col overflow-hidden rounded-2xl border-2 border-dark-500 bg-white bg-opacity-5">
+      <AnimatePresence>{modal && <Apply showModal={showModal} {...props} />}</AnimatePresence>
       <div className="flex w-full items-center justify-between p-5">
         <p className="text-2xl text-white">{props.name}</p>
-        <div className="flex cursor-pointer items-center justify-center rounded-2xl bg-blue-800 px-6 py-2 transition duration-300 hover:bg-blue-900">
+        <div
+          className="flex cursor-pointer items-center justify-center rounded-2xl bg-blue-800 px-6 py-2 transition duration-300 hover:bg-blue-900"
+          onClick={() => showModal(true)}
+        >
           <p className="text-xl text-white">Apply</p>
         </div>
       </div>
